@@ -1,0 +1,9 @@
+Female Certificate Template Design:
+- Background color: Soft lavender
+- Title: "Certificate of Excellence"
+- Border: Silver filigree design
+- Layout: Landscape orientation
+- Placeholder for name in center
+- Space for signature at bottom right
+- Optional profile picture area at top left
+- Watermark: Elegant floral pattern in background

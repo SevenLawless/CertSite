@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlRoot">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رمضان كريم</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4NP8DY0161"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-4NP8DY0161');
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+            <div class="language-toggle">
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero section removed as requested -->
+        
+        <section id="generator" class="generator-section">
+            <div class="container">
+                <div class="form-container">
+                    <div class="title-decoration">
+                        <h2>الآن تستطيع إنشاء <span>شهادة تقدير</span> لأطفالك لصيامهم شهر رمضان المبارك.</h2>
+                    </div>
+                    <form id="certificateForm">
+                        <div class="form-group">
+                            <label for="fullName">الاسم الكامل</label>
+                            <input type="text" id="fullName" name="fullName" 
+                                   placeholder="أدخل اسمك الكامل" 
+                                   dir="rtl" 
+                                   maxlength="13"
+                                   required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signature">التوقيع</label>
+                            <input type="text" id="signature" name="signature" 
+                                   placeholder="أدخل توقيعك" 
+                                   dir="rtl" 
+                                   maxlength="13"
+                                   required>
+                        </div>
+
+                        <div class="form-group gender-section">
+                            <div class="gender-inputs">
+                                <label>الجنس</label>
+                                <div class="radio-group">
+                                    <input type="radio" id="male" name="gender" value="male" required>
+                                    <label for="male">ذكر</label>
+                                    <input type="radio" id="female" name="gender" value="female">
+                                    <label for="female">أنثى</label>
+                                </div>
+                            </div>
+                            <div class="template-preview">
+                                <img src="cert1.png" alt="Certificate Template" class="preview-image">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>الصورة الشخصية</label>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="includePicture" name="includePicture">
+                                <label for="includePicture">إضافة صورة شخصية</label>
+                            </div>
+                            <input type="file" id="pictureInput" accept="image/*" style="display: none;">
+                        </div>
+
+                        <button type="submit">إنشاء الشهادة</button>
+                    </form>
+                </div>
+
+                <div id="certificatePreview" class="hidden">
+                    <h2>معاينة الشهادة</h2>
+                    <div id="certificateContainer"></div>
+                    <button id="downloadCertificate">تحميل الشهادة</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>من نحن</h3>
+                <p>//credits to creativity marketing n chimera//</p>
+            </div>
+            <div class="footer-section">
+                <h3>اتصل بنا</h3>
+                <p>Email: info@example.com</p>
+                <p>Phone: +1234567890</p>
+            </div>
+            <div class="footer-section">
+                <h3>تابعنا</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
