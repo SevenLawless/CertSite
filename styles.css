@@ -323,12 +323,12 @@ footer {
         width: 220px;
     }
     
-    .title-decoration h2 {
+     {
         font-size: 26px;
         padding-top: 150px;
     }
     
-    .title-decoration h2 span {
+     span {
         font-size: 22px;
     }
 }
@@ -376,12 +376,12 @@ footer {
         margin-bottom: 1rem;
     }
     
-    .title-decoration h2 {
+     {
         font-size: 22px;
         padding-top: 120px;
     }
     
-    .title-decoration h2 span {
+     span {
         font-size: 20px;
     }
     
@@ -462,12 +462,12 @@ footer {
         min-height: 700px;
     }
     
-    .title-decoration h2 {
+     {
         font-size: 20px;
         padding-top: 80px;
     }
     
-    .title-decoration h2 span {
+     span {
         font-size: 18px;
     }
     
@@ -592,7 +592,7 @@ footer {
 }
 
 .title-decoration h2 {
-    color: #124e3d
+    color: #124e3d;
     font-size: 32px;
     margin-bottom: 1.5rem;
     padding-top: 150px;
