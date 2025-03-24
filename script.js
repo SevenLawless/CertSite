@@ -580,17 +580,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Download Certificate
     downloadCertificateBtn.addEventListener('click', () => {
-        // Track the certificate download event with Google Analytics
-        gtag('event', 'generate_certificate', {
-          'event_category': 'Certificate',
-          'event_label': 'Download'
-        });
+        // Get device information
+        const deviceType = getDeviceType();
         
-        const canvas = certificateContainer.querySelector('canvas');
-        const fullName = document.getElementById('fullName').value;
-        const link = document.createElement('a');
-        link.download = `${fullName}_certificate.png`;
-        link.href = canvas.toDataURL();
-        link.click();
+        // Get country information (using IP geolocation)
+        getCountryInfo().then(country => {
+            // Track the certificate download event with enhanced data
+            gtag('event', 'generate_certificate', {
+                'event_category': 'Certificate',
+                'event_label': 'Download',
+                'device_type': deviceType,
+                'country': country,
+                'user_agent': navigator.userAgent
+            });
+            
+            const canvas = certificateContainer.querySelector('canvas');
+            const fullName = document.getElementById('fullName').value;
+            const link = document.createElement('a');
+            link.download = `${fullName}_certificate.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        });
     });
+    
+    // Function to detect device type
+    function getDeviceType() {
+        const userAgent = navigator.userAgent;
+        if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(userAgent)) {
+            return 'Tablet';
+        }
+        if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(userAgent)) {
+            return 'Mobile';
+        }
+        return 'Desktop';
+    }
+    
+    // Function to get country information
+    function getCountryInfo() {
+        return fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => data.country_name)
+            .catch(() => 'Unknown');
+    }
 });
