@@ -592,7 +592,7 @@ footer {
 }
 
 .title-decoration h2 {
-    color: var(--primary-color);
+    color: #124e3d
     font-size: 32px;
     margin-bottom: 1.5rem;
     padding-top: 150px;
