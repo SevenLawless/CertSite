@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             signature: {
                 x: 770,      // Always Start at x position == 760px
                 y: 1910,     // Vertical position
-                fontSize: 68,// Font size
+                fontSize: 75,// Font size
                 fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
                 color: '#188995' // Text color
             }
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             signature: {
                 x: 790,      // Fixed horizontal position
                 y: 1650,     // Vertical position
-                fontSize: 68,// Slightly larger font size
+                fontSize: 75,// Slightly larger font size
                 fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
                 color: '#188995' // Text color
             }
