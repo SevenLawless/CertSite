@@ -454,16 +454,110 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Set up GA Debug panel
+    const gaDebug = document.getElementById('ga-debug');
+    const gaDebugLog = document.getElementById('ga-debug-log');
+    
+    // Override the logEvent function to show in the debug panel
+    window.logEvent = function(eventName, params) {
+        console.log('🔍 GA Event:', eventName, params);
+        
+        // Show debug panel
+        if (gaDebug) {
+            gaDebug.style.display = 'block';
+        }
+        
+        // Add to debug log
+        if (gaDebugLog) {
+            const now = new Date();
+            const timestamp = now.getHours().toString().padStart(2, '0') + ':' + 
+                             now.getMinutes().toString().padStart(2, '0') + ':' + 
+                             now.getSeconds().toString().padStart(2, '0');
+            
+            gaDebugLog.innerHTML = `<div><strong>${timestamp} - ${eventName}</strong><br>` + 
+                                  JSON.stringify(params).substring(0, 100) + 
+                                  (JSON.stringify(params).length > 100 ? '...' : '') + 
+                                  '</div>' + gaDebugLog.innerHTML;
+            
+            // Limit log size
+            if (gaDebugLog.children.length > 10) {
+                gaDebugLog.removeChild(gaDebugLog.lastChild);
+            }
+        }
+        
+        return true;
+    };
+    
+    // Manual test function for GA events
+    window.testGAEvent = function() {
+        // Test GA connectivity
+        logEvent('test_event', {'test_param': 'test_value'});
+        gtag('event', 'test_event', {
+            'event_category': 'Testing',
+            'event_label': 'Test Event',
+            'value': 1,
+            'send_to': 'G-GQ3T6MFMZM'
+        });
+        
+        // Direct measurement protocol hit (alternative method)
+        const img = new Image();
+        img.src = 'https://www.google-analytics.com/collect?v=2&tid=G-GQ3T6MFMZM&cid=' + 
+                 (localStorage.getItem('ga_client_id') || Math.random().toString(36).substring(2)) + 
+                 '&t=event&ec=Testing&ea=test_direct&el=Direct Test&ev=1';
+        
+        // Store client ID for consistent tracking
+        if (!localStorage.getItem('ga_client_id')) {
+            localStorage.setItem('ga_client_id', Math.random().toString(36).substring(2));
+        }
+        
+        alert('Test event sent to Google Analytics. Check the console and debug panel.');
+        return true;
+    };
+
+    // Add simple local analytics tracking
+    function incrementLocalCounter(counterName) {
+        const counters = JSON.parse(localStorage.getItem('certSiteCounters') || '{}');
+        counters[counterName] = (counters[counterName] || 0) + 1;
+        localStorage.setItem('certSiteCounters', JSON.stringify(counters));
+        return counters[counterName];
+    }
+
+    // Track page visit
+    incrementLocalCounter('pageVisits');
+    // Create a timestamp for this visit if not exists
+    if (!localStorage.getItem('firstVisit')) {
+        localStorage.setItem('firstVisit', new Date().toISOString());
+    }
+
     // Certificate Generation
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
         // Track certificate generation with Google Analytics
-        gtag('event', 'generate_certificate', {
+        const generateParams = {
             'event_category': 'Certificate',
             'event_label': 'Generate',
+            'value': 1,
+            'send_to': 'G-GQ3T6MFMZM',
             'device_type': getDeviceType()
+        };
+        
+        // Log event for debugging
+        logEvent('generate_certificate', generateParams);
+        
+        // Send to Google Analytics
+        gtag('event', 'generate_certificate', generateParams);
+        
+        // Direct interaction for GA4 - this should work even if the custom event doesn't
+        gtag('event', 'conversion', {
+            'send_to': 'G-GQ3T6MFMZM',
+            'event_category': 'Certificate',
+            'event_action': 'Generated'
         });
+
+        // Also track with local counter
+        const generateCount = incrementLocalCounter('certificatesGenerated');
+        console.log(`Certificate generated (${generateCount} total)`);
 
         const fullName = document.getElementById('fullName').value;
         const signature = document.getElementById('signature').value;
@@ -593,13 +687,32 @@ document.addEventListener('DOMContentLoaded', () => {
         // Get country information (using IP geolocation)
         getCountryInfo().then(country => {
             // Track the certificate download event with enhanced data
-            gtag('event', 'download_certificate', {
+            const downloadParams = {
                 'event_category': 'Certificate',
                 'event_label': 'Download',
+                'value': 1,
+                'send_to': 'G-GQ3T6MFMZM',
                 'device_type': deviceType,
                 'country': country,
                 'user_agent': navigator.userAgent
+            };
+            
+            // Log event for debugging
+            logEvent('download_certificate', downloadParams);
+            
+            // Send to Google Analytics
+            gtag('event', 'download_certificate', downloadParams);
+            
+            // Direct interaction for GA4 - this should work even if the custom event doesn't
+            gtag('event', 'conversion', {
+                'send_to': 'G-GQ3T6MFMZM',
+                'event_category': 'Certificate',
+                'event_action': 'Downloaded'
             });
+            
+            // Also track with local counter
+            const downloadCount = incrementLocalCounter('certificatesDownloaded');
+            console.log(`Certificate downloaded (${downloadCount} total)`);
             
             const canvas = certificateContainer.querySelector('canvas');
             const fullName = document.getElementById('fullName').value;
@@ -628,5 +741,82 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => data.country_name)
             .catch(() => 'Unknown');
+    }
+
+    // Add general click tracking for buttons
+    document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const buttonText = this.textContent.trim();
+            gtag('event', 'button_click', {
+                'event_category': 'UI Interaction',
+                'event_label': buttonText,
+                'value': 1,
+                'send_to': 'G-GQ3T6MFMZM'
+            });
+        });
+    });
+
+    // Add a simple way to check statistics in console
+    window.checkLocalStats = function() {
+        const counters = JSON.parse(localStorage.getItem('certSiteCounters') || '{}');
+        const firstVisit = localStorage.getItem('firstVisit') || 'Unknown';
+        const daysSinceFirst = firstVisit !== 'Unknown' ? 
+            Math.floor((new Date() - new Date(firstVisit)) / (1000 * 60 * 60 * 24)) : 0;
+        
+        console.table({
+            'Page Visits': counters.pageVisits || 0,
+            'Certificates Generated': counters.certificatesGenerated || 0,
+            'Certificates Downloaded': counters.certificatesDownloaded || 0,
+            'Days Tracking': daysSinceFirst,
+            'First Visit': new Date(firstVisit).toLocaleString()
+        });
+        
+        return counters;
+    };
+
+    // Setup statistics modal
+    const statsToggle = document.getElementById('stats-toggle');
+    const statsModal = document.getElementById('stats-modal');
+    const statsClose = document.querySelector('.stats-close');
+    const statsData = document.getElementById('stats-data');
+
+    if (statsToggle && statsModal) {
+        // Show modal when clicking the stats button
+        statsToggle.addEventListener('click', function() {
+            statsModal.style.display = 'block';
+            updateStatsDisplay();
+        });
+
+        // Close modal when clicking X
+        if (statsClose) {
+            statsClose.addEventListener('click', function() {
+                statsModal.style.display = 'none';
+            });
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === statsModal) {
+                statsModal.style.display = 'none';
+            }
+        });
+
+        // Update stats display function
+        function updateStatsDisplay() {
+            const counters = JSON.parse(localStorage.getItem('certSiteCounters') || '{}');
+            const firstVisit = localStorage.getItem('firstVisit') || 'Unknown';
+            const daysSinceFirst = firstVisit !== 'Unknown' ? 
+                Math.floor((new Date() - new Date(firstVisit)) / (1000 * 60 * 60 * 24)) : 0;
+            
+            let html = '<table class="stats-table">';
+            html += '<tr><td>Page Visits</td><td>' + (counters.pageVisits || 0) + '</td></tr>';
+            html += '<tr><td>Certificates Generated</td><td>' + (counters.certificatesGenerated || 0) + '</td></tr>';
+            html += '<tr><td>Certificates Downloaded</td><td>' + (counters.certificatesDownloaded || 0) + '</td></tr>';
+            html += '<tr><td>Days Tracking</td><td>' + daysSinceFirst + '</td></tr>';
+            html += '<tr><td>First Visit</td><td>' + (firstVisit !== 'Unknown' ? new Date(firstVisit).toLocaleString() : 'Unknown') + '</td></tr>';
+            html += '</table>';
+            
+            statsData.innerHTML = html;
+        }
     }
 });
