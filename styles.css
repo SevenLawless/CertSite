@@ -1063,3 +1063,49 @@ input[type="file"] {
         padding-top: 20px;
     }
 }
+
+/* Analytics Dashboard */
+.analytics-toggle {
+    text-align: center;
+    color: #188995;
+    padding: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.analytics-toggle:hover {
+    color: #065e69;
+}
+
+.analytics-dashboard {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.analytics-dashboard h3 {
+    color: #188995;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.analytics-dashboard ul {
+    list-style: none;
+    padding: 0;
+}
+
+.analytics-dashboard li {
+    padding: 5px 0;
+    text-align: center;
+    font-size: 16px;
+}
+
+.analytics-dashboard li span {
+    font-weight: bold;
+    color: #065e69;
+}

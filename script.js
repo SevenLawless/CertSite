@@ -458,6 +458,13 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
+        // Track certificate generation with Google Analytics
+        gtag('event', 'generate_certificate', {
+            'event_category': 'Certificate',
+            'event_label': 'Generate',
+            'device_type': getDeviceType()
+        });
+
         const fullName = document.getElementById('fullName').value;
         const signature = document.getElementById('signature').value;
         const gender = document.querySelector('input[name="gender"]:checked').value;
@@ -586,7 +593,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Get country information (using IP geolocation)
         getCountryInfo().then(country => {
             // Track the certificate download event with enhanced data
-            gtag('event', 'generate_certificate', {
+            gtag('event', 'download_certificate', {
                 'event_category': 'Certificate',
                 'event_label': 'Download',
                 'device_type': deviceType,
