@@ -461,7 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Track certificate generation with Google Analytics
         gtag('event', 'generate_certificate', {
             'event_category': 'Certificate',
-            'event_label': 'Generate'
+            'event_label': 'Certss'
         });
 
         const fullName = document.getElementById('fullName').value;
