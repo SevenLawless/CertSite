@@ -601,7 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const canvas = certificateContainer.querySelector('canvas');
         const fullName = document.getElementById('fullName').value;
         const link = document.createElement('a');
-        link.download = `${fullName}_certificate.png`;
+        link.download = `شهادة تقدير ل ${fullName}`;
         link.href = canvas.toDataURL();
         link.click();
     });
