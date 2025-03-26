@@ -588,9 +588,15 @@ document.addEventListener('DOMContentLoaded', () => {
     downloadCertificateBtn.addEventListener('click', () => {
         // Track download event with Google Analytics
         gtag('event', 'download_certificate', {
-            'event_category': 'Certificate',
-            'event_label': 'Download'
+            'event_category': 'engagement',
+            'event_label': 'Certificate Download',
+            'value': 1,
+            'non_interaction': false,
+            'device': getDeviceType()
         });
+        
+        // Also log locally to console for debugging
+        console.log('Certificate downloaded at: ' + new Date().toLocaleString());
         
         const canvas = certificateContainer.querySelector('canvas');
         const fullName = document.getElementById('fullName').value;
