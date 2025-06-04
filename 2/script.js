@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             // Signature placement (x, y, font settings)
             signature: {
-                x: 810,      // Always Start at x position == 760px
+                x: 840,      // Always Start at x position == 760px
                 y: 1840,     // Vertical position
                 fontSize: 100,// Font size
                 fontFamily: '"Segoe UI", Arial, sans-serif', // Font family

@@ -38,11 +38,16 @@
     </main>
 
     <script>
+        // Additional JavaScript function for debugging
         function navigateToFeature(featureNumber) {
             const url = `./${featureNumber}/index.html`;
             console.log('Navigating to:', url);
             window.location.href = url;
         }
+        
+        // Alternative: You can also use this function instead of inline onclick
+        // Just replace onclick="window.location.href='./1/index.html'" 
+        // with onclick="navigateToFeature(1)"
     </script>
 </body>
 </html> 
