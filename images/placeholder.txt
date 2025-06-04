@@ -1,0 +1,10 @@
+For the website to display images correctly, please add the following image files to this directory:
+
+1. image1.jpg - For the first feature box
+2. image2.jpg - For the second feature box
+3. image3.jpg - For the third feature box
+4. image4.jpg - For the fourth feature box
+
+The recommended image dimensions are 800x500 pixels.
+
+You can replace these with any images of your choice and update the text content in the HTML files as needed. 

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Value Box</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="theme-color" content="#2c3e50">
+    <meta name="description" content="Value Box - Premium Features Collection">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Value Box</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="./1/index.html">Ramadan</a></li>
+                <li><a href="./2/index.html">Eid Al-Adha</a></li>
+                <li><a href="./3/index.html">Feature 3</a></li>
+                <li><a href="./4/index.html">Feature 4</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="feature-container">
+            <div class="feature-box" onclick="navigateToFeature(1)">
+                <img src="images/1.png" alt="Ramadan">
+                <h2>Ramadan</h2>
+                <p>Create personalized certificates to congratulate kids on their fasting and Ramadan achievements!</p>
+            </div>
+            
+            <div class="feature-box" onclick="navigateToFeature(2)">
+                <img src="images/2.png" alt="Eid Al-Adha">
+                <h2>Eid Al-Adha</h2>
+                <p>Generate beautiful certificates to celebrate kids' participation in Eid Al-Adha traditions!</p>
+            </div>
+            
+            <div class="feature-box" onclick="navigateToFeature(3)">
+                <img src="images/notyet.png" alt="Feature 3">
+                <h2>Feature 3</h2>
+                <p>Learn about our third outstanding feature!</p>
+            </div>
+            
+            <div class="feature-box" onclick="navigateToFeature(4)">
+                <img src="images/image4.jpg" alt="Feature 4">
+                <h2>Feature 4</h2>
+                <p>Explore our fourth fantastic feature!</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 SevenLawless. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Additional JavaScript function for debugging
+        function navigateToFeature(featureNumber) {
+            const url = `./${featureNumber}/index.html`;
+            console.log('Navigating to:', url);
+            window.location.href = url;
+        }
+        
+        // Alternative: You can also use this function instead of inline onclick
+        // Just replace onclick="window.location.href='./1/index.html'" 
+        // with onclick="navigateToFeature(1)"
+    </script>
+</body>
+</html> 
