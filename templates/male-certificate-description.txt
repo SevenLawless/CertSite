@@ -1,9 +1,0 @@
-Male Certificate Template Design:
-- Background color: Navy blue
-- Title: "Certificate of Achievement"
-- Border: Gold embossed frame
-- Layout: Landscape orientation
-- Placeholder for name in center
-- Space for signature at bottom left
-- Optional profile picture area at top right
-- Watermark: Subtle geometric pattern in background
