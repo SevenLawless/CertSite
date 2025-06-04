@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" id="htmlRoot">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ3T6MFMZM"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -14,7 +13,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اصنع شهادة تقدير لطفلك الصائم</title>
+    <title>اصنع شهادة تقدير لطفلك في العيد</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
@@ -31,13 +30,11 @@
     </header>
 
     <main>
-        <!-- Hero section removed as requested -->
-        
         <section id="generator" class="generator-section">
             <div class="container">
                 <div class="form-container">
                     <div class="title-decoration">
-                        <h2 style="margin-top: 30px;">قم بتهنئة أطفالك بمناسبة حلول عيد الأضحى ، وامنحهم شهادة تقديراً احتفالا بهم</h2>
+                        <h2>كافئ أطفالك على مشاركتهم في تقاليد عيد الأضحى المبارك، وامنحهم شهادة تقديراً لجهودهم</h2>
                     </div>
                     <form id="certificateForm">
                         <div class="form-group">
@@ -69,7 +66,7 @@
                                 </div>
                             </div>
                             <div class="template-preview">
-                                <img src="cert1.png" alt="Certificate Template" class="preview-image" style="width: 190px; height: auto;">
+                                <img src="cert1.png" alt="Certificate Template" class="preview-image">
                             </div>
                         </div>
 
@@ -97,7 +94,6 @@
 
     <footer>
         <div class="container">
-            <!-- Footer content -->
         </div>
     </footer>
 
@@ -105,19 +101,13 @@
     <script src="script.js"></script>
     
     <script>
-      // Wait for the DOM to be fully loaded
       document.addEventListener('DOMContentLoaded', function() {
-        // Get the button element by its ID
         var downloadBtn = document.getElementById('downloadCertificate');
         
-        // Check if the button exists
         if(downloadBtn) {
-          // Attach a click event listener
           downloadBtn.addEventListener('click', function() {
-            // Log the click event in the console (for testing)
             console.log('Download Certificate button clicked');
     
-            // Send the event to Google Analytics
             gtag('event', 'click', {
               'event_category': 'Button',
               'event_label': 'Certs',

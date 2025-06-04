@@ -12,13 +12,11 @@
 <body>
     <header>
         <nav>
-            <h1>Value Box</h1>
+            <h1>Al tarik</h1>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="./1/index.html">Ramadan</a></li>
                 <li><a href="./2/index.html">Eid Al-Adha</a></li>
-                <li><a href="./3/index.html">Feature 3</a></li>
-                <li><a href="./4/index.html">Feature 4</a></li>
             </ul>
         </nav>
     </header>
@@ -36,36 +34,15 @@
                 <h2>Eid Al-Adha</h2>
                 <p>Generate beautiful certificates to celebrate kids' participation in Eid Al-Adha traditions!</p>
             </div>
-            
-            <div class="feature-box" onclick="navigateToFeature(3)">
-                <img src="images/notyet.png" alt="Feature 3">
-                <h2>Feature 3</h2>
-                <p>Learn about our third outstanding feature!</p>
-            </div>
-            
-            <div class="feature-box" onclick="navigateToFeature(4)">
-                <img src="images/image4.jpg" alt="Feature 4">
-                <h2>Feature 4</h2>
-                <p>Explore our fourth fantastic feature!</p>
-            </div>
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2025 SevenLawless. All rights reserved.</p>
-    </footer>
-
     <script>
-        // Additional JavaScript function for debugging
         function navigateToFeature(featureNumber) {
             const url = `./${featureNumber}/index.html`;
             console.log('Navigating to:', url);
             window.location.href = url;
         }
-        
-        // Alternative: You can also use this function instead of inline onclick
-        // Just replace onclick="window.location.href='./1/index.html'" 
-        // with onclick="navigateToFeature(1)"
     </script>
 </body>
 </html> 

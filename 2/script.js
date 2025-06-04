@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
         withPicture: {
             // Picture placement (x, y, width, height)
             picture: {
-                x: 807,      // Horizontal center position
-                y: 1065,      // Vertical center position
-                width: 680,  // Width of rectangular crop (4:3 aspect ratio)
+                x: 805,      // Horizontal center position
+                y: 1060,      // Vertical center position
+                width: 690,  // Width of rectangular crop (4:3 aspect ratio)
                 height: 490, // Height of rectangular crop (4:3 aspect ratio)
                 scale: 1     // Scale factor for picture size
             },
