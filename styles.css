@@ -6,14 +6,14 @@
 }
 
 body {
-    background: linear-gradient(135deg, #fcb13a 0%, #d1c5dd 100%);
+    background: linear-gradient(135deg, #fcb13a 0%, #f2edd9 100%);
     color: #333;
     line-height: 1.6;
     min-height: 100vh;
 }
 
 header {
-    background: linear-gradient(135deg, #fcb13a 0%, #d1c5dd 100%);
+    background: linear-gradient(185deg, #fcb13a 0%, #f2edd9 100%);
     backdrop-filter: blur(10px);
     color: #ecf0f1;
     padding: 1rem 0;
@@ -32,6 +32,13 @@ nav {
 nav h1 {
     font-size: 1.8rem;
     font-weight: 600;
+}
+
+.logo {
+    height: 100px;
+    width: auto;
+    max-width: 350px;
+    object-fit: contain;
 }
 
 nav ul {
