@@ -170,16 +170,7 @@ main {
     margin-bottom: 1.5rem;
 }
 
-/* Gender Section with Template Preview */
-.gender-section {
-    position: relative;
-    margin: 1.5rem 0;
-}
-
-.gender-inputs {
-    width: 100%;
-    padding-left: 20px;
-}
+/* Template Preview Section */
 
 .template-preview {
     position: absolute;
@@ -198,34 +189,7 @@ main {
     margin-right: 400px;
 }
 
-.radio-group {
-    display: flex;
-    align-items: center;
-    margin-top: 5px;
-}
 
-.radio-group input[type="radio"] {
-    margin: 0 5px;
-}
-
-.radio-group label {
-    color: var(--primary-color);
-    font-weight: 500;
-    
-    margin-left: 30px;
-}
-
-/* Add space for the last radio option */
-.radio-group label:last-child {
-    
-    margin-left: 30px;
-}
-
-/* Gender section label */
-.gender-inputs > label {
-    display: block;
-    margin-bottom: 5px;
-}
 
 button[type="submit"] {
     background-color: #16644e;
@@ -323,12 +287,12 @@ footer {
         width: 220px;
     }
     
-     {
+    .title-decoration h2 {
         font-size: 26px;
         padding-top: 150px;
     }
     
-     span {
+    .title-decoration h2 span {
         font-size: 22px;
     }
 }
@@ -354,9 +318,7 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    .gender-section {
-        margin: 2rem 0;
-    }
+
 
     .template-preview {
         position: relative;
@@ -370,18 +332,14 @@ footer {
         display: none; /* Hide the preview on mobile */
     }
 
-    .gender-inputs {
-        width: 100%;
-        padding-left: 0;
-        margin-bottom: 1rem;
-    }
+
     
-     {
+    .title-decoration h2 {
         font-size: 22px;
         padding-top: 120px;
     }
     
-     span {
+    .title-decoration h2 span {
         font-size: 20px;
     }
     
@@ -399,15 +357,7 @@ footer {
         padding: 0 1rem;
     }
 
-    .radio-group {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-    }
 
-    .radio-group label {
-        margin: 0;
-    }
 
     #certificatePreview {
         margin-top: 2rem;
@@ -462,12 +412,12 @@ footer {
         min-height: 700px;
     }
     
-     {
+    .title-decoration h2 {
         font-size: 20px;
         padding-top: 80px;
     }
     
-     span {
+    .title-decoration h2 span {
         font-size: 18px;
     }
     
@@ -479,17 +429,7 @@ footer {
         padding: 0.8rem;
     }
     
-    .gender-inputs > label {
-        margin-bottom: 8px;
-    }
-    
-    .radio-group {
-        flex-wrap: wrap;
-    }
-    
-    .radio-group label {
-        margin-bottom: 10px;
-    }
+
     
     button[type="submit"] {
         padding: 0.8rem 1.5rem;
@@ -509,9 +449,7 @@ footer {
         justify-content: center;
     }
     
-    .gender-inputs {
-        padding-left: 10px;
-    }
+
     
     .generator-section {
         padding-top: 30px;
@@ -665,14 +603,7 @@ input[type="text"]:focus {
     text-align: right;
 }
 
-[dir="rtl"] .radio-group {
-    justify-content: flex-start;
-}
 
-[dir="rtl"] .radio-group label {
-    margin-right: 5px;
-    margin-left: 20px;
-}
 
 [dir="rtl"] .template-preview {
     right: 20px;

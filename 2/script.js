@@ -467,16 +467,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const fullName = document.getElementById('fullName').value;
         const signature = document.getElementById('signature').value;
-        const gender = document.querySelector('input[name="gender"]:checked').value;
         let pictureDataURL = null;
 
-        // Select Certificate Template
-        const selectTemplate = (gender, hasPicture) => {
-            if (gender === 'male') {
-                return hasPicture ? 'templates/male-certificate.jpg' : 'templates/male-no-certificate.jpg';
-            } else {
-                return hasPicture ? 'templates/female-certificate.jpg' : 'templates/female-no-certificate.jpg';
-            }
+        // Select Certificate Template (always use male templates)
+        const selectTemplate = (hasPicture) => {
+            return hasPicture ? 'templates/male-certificate.jpg' : 'templates/male-no-certificate.jpg';
         };
 
         // Picture Handling
@@ -484,25 +479,25 @@ document.addEventListener('DOMContentLoaded', () => {
             if (croppedImageDataURL) {
                 // Use the cropped image if available
                 pictureDataURL = croppedImageDataURL;
-                generateCertificate(fullName, signature, gender, pictureDataURL, selectTemplate(gender, true));
+                generateCertificate(fullName, signature, pictureDataURL, selectTemplate(true));
             } else if (pictureInput.files.length > 0) {
                 // Fallback to original image if no cropped version
                 const reader = new FileReader();
                 reader.onload = function(event) {
                     pictureDataURL = event.target.result;
-                    generateCertificate(fullName, signature, gender, pictureDataURL, selectTemplate(gender, true));
+                    generateCertificate(fullName, signature, pictureDataURL, selectTemplate(true));
                 };
                 reader.readAsDataURL(pictureInput.files[0]);
             } else {
                 // No image provided
-                generateCertificate(fullName, signature, gender, null, selectTemplate(gender, false));
+                generateCertificate(fullName, signature, null, selectTemplate(false));
             }
         } else {
-            generateCertificate(fullName, signature, gender, null, selectTemplate(gender, false));
+            generateCertificate(fullName, signature, null, selectTemplate(false));
         }
     });
 
-    function generateCertificate(fullName, signature, gender, pictureDataURL, templateSrc) {
+    function generateCertificate(fullName, signature, pictureDataURL, templateSrc) {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
 
