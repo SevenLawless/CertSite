@@ -14,11 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Name placement (x, y, font settings)
             name: {
                 x: 1080,      // Horizontal center position
-                y: 1255,     // Vertical position
+                y: 1260,     // Vertical position
                 fontSize: 145,// Font size
                 fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
                 color: '#2f2838', // Name color
-                prefixColor: '#894700' // Color for "مقدمة ل :" prefix
+                prefixColor: '#894700', // Color for "مقدمة ل :" prefix
+                prefixY: 1245 // Y position for prefix text (can be different from name Y)
             },
             // Class placement (x, y, font settings)
             class: {
@@ -45,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 fontSize: 145,// Larger font size
                 fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
                 color: '#2f2838', // Name color
-                prefixColor: '#894700' // Color for "مقدمة ل :" prefix
+                prefixColor: '#894700', // Color for "مقدمة ل :" prefix
+                prefixY: 970  // Y position for prefix text (can be different from name Y)
             },
             // Class placement (x, y, font settings)
             class: {
@@ -538,19 +540,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 CERTIFICATE_CONFIG.withoutPicture;
 
             // Add Name with different colors for prefix and name
-            ctx.font = `900 ${config.name.fontSize}px ${config.name.fontFamily}`;
+            // Set smaller font for prefix
+            const prefixFontSize = Math.round(config.name.fontSize * 0.5); // 70% of name font size
+            ctx.font = `900 ${prefixFontSize}px ${config.name.fontFamily}`;
             
             // Draw prefix "مقدمة ل :" in brown color (right side)
             ctx.fillStyle = config.name.prefixColor;
             const prefixText = " :مقدمة ل  ";
             const prefixWidth = ctx.measureText(prefixText).width;
+            
+            // Set larger font for name
+            ctx.font = `900 ${config.name.fontSize}px ${config.name.fontFamily}`;
             const nameWidth = ctx.measureText(fullName).width;
             const totalWidth = prefixWidth + nameWidth;
             
-            // Draw prefix starting from right
-            ctx.fillText(prefixText, config.name.x + totalWidth/2 - prefixWidth, config.name.y);
+            // Draw prefix starting from right (with smaller font)
+            ctx.font = `900 ${prefixFontSize}px ${config.name.fontFamily}`;
+            ctx.fillText(prefixText, config.name.x + totalWidth/2 - prefixWidth, config.name.prefixY || config.name.y);
             
-            // Draw name to the left of prefix
+            // Draw name to the left of prefix (with larger font)
+            ctx.font = `900 ${config.name.fontSize}px ${config.name.fontFamily}`;
             ctx.fillStyle = config.name.color;
             ctx.fillText(fullName, config.name.x - totalWidth/2, config.name.y);
 
