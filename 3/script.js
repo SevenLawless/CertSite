@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             // Class placement (x, y, font settings)
             class: {
-                x: 460,      // Horizontal center position
+                x: 400,      // Horizontal center position
                 y: 1390,     // Vertical position (between name and signature)
-                fontSize: 120,// Font size
+                fontSize: 80,// Font size
                 fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
                 color: '#894700' // Text color
             },
@@ -51,9 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             // Class placement (x, y, font settings)
             class: {
-                x: 430,      // Horizontal center position
+                x: 400,      // Horizontal center position
                 y: 1160,     // Vertical position (between name and signature)
-                fontSize: 120,// Font size
+                fontSize: 80,// Font size
                 fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
                 color: '#894700' // Text color
             },
