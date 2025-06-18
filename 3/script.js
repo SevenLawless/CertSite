@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             // Name placement (x, y, font settings)
             name: {
-                x: 1080,      // Horizontal center position
+                x: 1350,      // Horizontal center position
                 y: 1260,     // Vertical position
                 fontSize: 145,// Font size
                 fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             // Class placement (x, y, font settings)
             class: {
-                x: 390,      // Horizontal center position
-                y: 1390,     // Vertical position (between name and signature)
+                x: 710,      // Horizontal center position
+                y: 1380,     // Vertical position (between name and signature)
                 fontSize: 90,// Font size
                 fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
                 color: '#894700' // Text color
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         withoutPicture: {
             // Separate configuration for certificates without pictures
             name: {
-                x: 1120,      // Horizontal center position
+                x: 1350,      // Horizontal center position
                 y: 980,      // Vertical position
                 fontSize: 145,// Larger font size
                 fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             // Class placement (x, y, font settings)
             class: {
-                x: 385,      // Horizontal center position
+                x: 710,      // Horizontal center position
                 y: 1160,     // Vertical position (between name and signature)
                 fontSize: 90,// Font size
                 fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
@@ -539,33 +539,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 CERTIFICATE_CONFIG.withPicture : 
                 CERTIFICATE_CONFIG.withoutPicture;
 
-            // Add Name with different colors for prefix and name
+            // Add Name with different colors for prefix and name (RIGHT-ALIGNED)
             // Set smaller font for prefix
             const prefixFontSize = Math.round(config.name.fontSize * 0.5); // 70% of name font size
-            ctx.font = `900 ${prefixFontSize}px ${config.name.fontFamily}`;
             
-            // Draw prefix "مقدمة ل :" in brown color (right side)
+            // Draw prefix "مقدمة ل :" in brown color (right-aligned at fixed position)
+            ctx.font = `900 ${prefixFontSize}px ${config.name.fontFamily}`;
             ctx.fillStyle = config.name.prefixColor;
-            const prefixText = " :مقدمة ل  ";
+            ctx.textAlign = 'right';
+            const prefixText = " مقدمة ل : ";
+            ctx.fillText(prefixText, config.name.x, config.name.prefixY || config.name.y);
+            
+            // Calculate prefix width for name positioning
             const prefixWidth = ctx.measureText(prefixText).width;
             
-            // Set larger font for name
-            ctx.font = `900 ${config.name.fontSize}px ${config.name.fontFamily}`;
-            const nameWidth = ctx.measureText(fullName).width;
-            const totalWidth = prefixWidth + nameWidth;
-            
-            // Draw prefix starting from right (with smaller font)
-            ctx.font = `900 ${prefixFontSize}px ${config.name.fontFamily}`;
-            ctx.fillText(prefixText, config.name.x + totalWidth/2 - prefixWidth, config.name.prefixY || config.name.y);
-            
-            // Draw name to the left of prefix (with larger font)
+            // Draw name to the left of prefix (larger font, right-aligned)
             ctx.font = `900 ${config.name.fontSize}px ${config.name.fontFamily}`;
             ctx.fillStyle = config.name.color;
-            ctx.fillText(fullName, config.name.x - totalWidth/2, config.name.y);
+            ctx.textAlign = 'right';
+            ctx.fillText(fullName, config.name.x - prefixWidth, config.name.y);
 
-            // Add Class
+            // Add Class (RIGHT-ALIGNED)
             ctx.font = `900 ${config.class.fontSize}px ${config.class.fontFamily}`;
             ctx.fillStyle = config.class.color;
+            ctx.textAlign = 'right';
             ctx.fillText(className, config.class.x, config.class.y);
 
             // Add Signature - Updated for center alignment with prefix
