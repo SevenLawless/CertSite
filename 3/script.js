@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.font = `900 ${prefixFontSize}px ${config.name.fontFamily}`;
             ctx.fillStyle = config.name.prefixColor;
             ctx.textAlign = 'right';
-            const prefixText = " مقدمة ل : ";
+            const prefixText = " :مقدمة ل  ";
             ctx.fillText(prefixText, config.name.x, config.name.prefixY || config.name.y);
             
             // Calculate prefix width for name positioning
