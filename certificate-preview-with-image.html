@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معاينة الشهادة مع صورة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { padding: 20px; background: #f5f5f5; }
+        .preview-header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #db5c29;
+            font-size: 1.2rem;
+        }
+        .preview-header a { color: #db5c29; margin-left: 1rem; }
+        #certificate-preview-with-image-container {
+            max-width: 100%;
+            overflow-x: auto;
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+        #certificate-preview-with-image-container canvas {
+            max-width: 100%;
+            height: auto !important;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-header">
+        <strong>معاينة الشهادة (مع صورة)</strong> — تستخدم test.png كصورة تجريبية. حدّث الصفحة لرؤية التغييرات.
+        <br>
+        <a href="index.html">← المولد</a>
+        <a href="certificate-preview.html">معاينة بدون صورة</a>
+    </div>
+    <div id="certificate-preview-with-image-container"></div>
+
+    <script src="script.js"></script>
+    <script>
+        function runPreviewWithImage() {
+            var container = document.getElementById('certificate-preview-with-image-container');
+            if (!container || !window.renderCertificatePreview) return;
+            var img = new Image();
+            img.onload = function() {
+                var c = document.createElement('canvas');
+                c.width = img.naturalWidth;
+                c.height = img.naturalHeight;
+                c.getContext('2d').drawImage(img, 0, 0);
+                window.renderCertificatePreview(container, {
+                    withPicture: true,
+                    pictureDataURL: c.toDataURL('image/png')
+                });
+            };
+            img.onerror = function() {
+                container.innerHTML = '<p style="color:#c04d20;">لم يتم العثور على test.png في المجلد الرئيسي.</p>';
+            };
+            img.src = 'test.png';
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', runPreviewWithImage);
+        } else {
+            runPreviewWithImage();
+        }
+    </script>
+</body>
+</html>

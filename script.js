@@ -5,44 +5,44 @@ document.addEventListener('DOMContentLoaded', () => {
         withPicture: {
             // Picture placement (x, y, radius)
             picture: {
-                x: 800,      // Horizontal center position
-                y: 835,      // Vertical position
-                radius: 300, // Size of circular crop
+                x: 823,      // Horizontal center position
+                y: 728,      // Vertical position
+                radius: 220, // Size of circular crop
                 scale: 1     // Scale factor for picture size
             },
             // Name placement (x, y, font settings)
             name: {
                 x: 800,      // Horizontal center position
-                y: 1260,     // Vertical position
-                fontSize: 84,// Font size
-                fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
-                color: '#ffffff' // Text color
+                y: 1130,     // Vertical position
+                fontSize: 132,// Font size
+                fontFamily: '"Amiri", serif', // Arabic font
+                color: '#442968' // Text color
             },
             // Signature placement (x, y, font settings)
             signature: {
-                x: 770,      // Always Start at x position == 760px
-                y: 1910,     // Vertical position
-                fontSize: 75,// Font size
-                fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
-                color: '#188995' // Text color
+                x: 410,      // Always Start at x position == 760px
+                y: 1615,     // Vertical position
+                fontSize: 112,// Font size
+                fontFamily: '"Amiri", serif', // Arabic font
+                color: '#db5c29' // Text color
             }
         },
         withoutPicture: {
             // Separate configuration for certificates without pictures
             name: {
                 x: 800,      // Horizontal center position
-                y: 950,      // Vertical position
-                fontSize: 82,// Larger font size
-                fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
-                color: '#ffffff' // Text color
+                y: 790,      // Vertical position
+                fontSize: 152,// Larger font size
+                fontFamily: '"Amiri", serif', // Arabic font
+                color: '#442968' // Text color
             },
             // Signature placement (x, y, font settings)
             signature: {
-                x: 790,      // Fixed horizontal position
-                y: 1650,     // Vertical position
-                fontSize: 75,// Slightly larger font size
-                fontFamily: '"Segoe UI", Arial, sans-serif', // Font family
-                color: '#188995' // Text color
+                x: 390,      // Fixed horizontal position
+                y: 1425,     // Vertical position
+                fontSize: 112,// Slightly larger font size
+                fontFamily: '"Amiri", serif', // Arabic font
+                color: '#db5c29' // Text color
             }
         }
     };
@@ -64,6 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const downloadCertificateBtn = document.getElementById('downloadCertificate');
     const languageToggle = document.querySelector('.language-toggle');
     const htmlRoot = document.getElementById('htmlRoot');
+
+    // Only set up form/cropper when on main page (form exists)
+    const isPreviewPage = !form && document.getElementById('certificate-preview-container');
 
     // Create image cropper elements - improved UI
     const cropperModal = document.createElement('div');
@@ -101,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         </div>
     `;
-    document.body.appendChild(cropperModal);
+    if (form) document.body.appendChild(cropperModal);
 
     // Add styles for the cropper modal
     const style = document.createElement('style');
@@ -143,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
             justify-content: center;
         }
     `;
-    document.head.appendChild(style);
+    if (form) document.head.appendChild(style);
 
     let cropper;
     let croppedImageDataURL = null;
@@ -190,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Picture Input Toggle - improved to always create the label
-    includePictureCheckbox.addEventListener('change', () => {
+    if (includePictureCheckbox) includePictureCheckbox.addEventListener('change', () => {
         if (includePictureCheckbox.checked) {
             // Add a label to make it clearer
             const fileLabel = document.createElement('div');
@@ -225,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Add event listener for picture input change - improved for better UX
-    pictureInput.addEventListener('change', (e) => {
+    if (pictureInput) pictureInput.addEventListener('change', (e) => {
         if (e.target.files.length > 0) {
             const file = e.target.files[0];
             
@@ -295,22 +298,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Add controls functionality
-    document.getElementById('zoomIn').addEventListener('click', () => {
-        if (cropper) cropper.zoom(0.1);
-    });
-
-    document.getElementById('zoomOut').addEventListener('click', () => {
-        if (cropper) cropper.zoom(-0.1);
-    });
-
-    document.getElementById('rotateLeft').addEventListener('click', () => {
-        if (cropper) cropper.rotate(-90);
-    });
-
-    document.getElementById('resetCrop').addEventListener('click', () => {
-        if (cropper) cropper.reset();
-    });
+    // Add controls functionality (only when form/cropper exist)
+    if (form) {
+        document.getElementById('zoomIn').addEventListener('click', () => {
+            if (cropper) cropper.zoom(0.1);
+        });
+        document.getElementById('zoomOut').addEventListener('click', () => {
+            if (cropper) cropper.zoom(-0.1);
+        });
+        document.getElementById('rotateLeft').addEventListener('click', () => {
+            if (cropper) cropper.rotate(-90);
+        });
+        document.getElementById('resetCrop').addEventListener('click', () => {
+            if (cropper) cropper.reset();
+        });
 
     // Apply crop button - enhanced with improved feedback
     document.getElementById('applyCrop').addEventListener('click', () => {
@@ -431,31 +432,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 10);
     });
 
-    // Cancel crop button
-    document.getElementById('cancelCrop').addEventListener('click', () => {
-        // Fade out modal
-        cropperModal.style.opacity = '0';
-        setTimeout(() => {
-            cropperModal.style.display = 'none';
-        }, 300);
-        
-        if (cropper) {
-            cropper.destroy();
-            cropper = null;
-        }
-        // Reset file input
-        pictureInput.value = '';
-        croppedImageDataURL = null;
-        
-        // Remove preview if exists
-        const existingPreview = document.querySelector('.cropped-preview');
-        if (existingPreview) {
-            existingPreview.parentNode.removeChild(existingPreview);
-        }
-    });
+        document.getElementById('cancelCrop').addEventListener('click', () => {
+            cropperModal.style.opacity = '0';
+            setTimeout(() => { cropperModal.style.display = 'none'; }, 300);
+            if (cropper) { cropper.destroy(); cropper = null; }
+            pictureInput.value = '';
+            croppedImageDataURL = null;
+            const existingPreview = document.querySelector('.cropped-preview');
+            if (existingPreview) existingPreview.parentNode.removeChild(existingPreview);
+        });
+    }
 
     // Certificate Generation
-    form.addEventListener('submit', (e) => {
+    if (form) form.addEventListener('submit', (e) => {
         e.preventDefault();
 
         // Track certificate generation with Google Analytics
@@ -471,11 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Select Certificate Template
         const selectTemplate = (gender, hasPicture) => {
-            if (gender === 'male') {
-                return hasPicture ? 'templates/male-certificate.jpg' : 'templates/male-no-certificate.jpg';
-            } else {
-                return hasPicture ? 'templates/female-certificate.jpg' : 'templates/female-no-certificate.jpg';
-            }
+            return hasPicture ? 'templates/certificate.png' : 'templates/nocertificate.png';
         };
 
         // Picture Handling
@@ -501,79 +486,89 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function generateCertificate(fullName, signature, gender, pictureDataURL, templateSrc) {
+    function generateCertificate(fullName, signature, gender, pictureDataURL, templateSrc, targetContainer) {
+        const onDone = targetContainer
+            ? (canvas) => { targetContainer.innerHTML = ''; targetContainer.appendChild(canvas); }
+            : (canvas) => displayCertificate(canvas);
+        renderCertificateToCanvas(fullName, signature, pictureDataURL, templateSrc, onDone);
+    }
+
+    // Shared drawing logic: can render to main page or any container (for preview page)
+    function renderCertificateToCanvas(fullName, signature, pictureDataURL, templateSrc, onDone) {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
 
-        const img = new Image();
-        img.onload = function() {
-            canvas.width = 1600;
-            canvas.height = 2000;
-            
-            // Draw background template
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const startLoad = () => tryLoad(templateSrc || 'templates/nocertificate.png', false);
 
-            // Determine text direction and font
-            const isArabic = htmlRoot.getAttribute('dir') === 'rtl';
-            ctx.textAlign = 'center';
-            
-            // Select configuration based on picture presence
-            const config = pictureDataURL ? 
-                CERTIFICATE_CONFIG.withPicture : 
-                CERTIFICATE_CONFIG.withoutPicture;
+        const tryLoad = (src, isRetry) => {
+            const img = new Image();
+            img.onload = function() {
+                canvas.width = 1600;
+                canvas.height = 2000;
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-            // Add Name
-            ctx.font = `bold ${config.name.fontSize}px ${config.name.fontFamily}`;
-            ctx.fillStyle = config.name.color;
-            ctx.fillText(fullName, config.name.x, config.name.y);
+                ctx.textAlign = 'center';
+                const config = pictureDataURL ?
+                    CERTIFICATE_CONFIG.withPicture :
+                    CERTIFICATE_CONFIG.withoutPicture;
 
-            // Add Signature - Updated for RTL text
-            ctx.font = `${config.signature.fontSize}px ${config.signature.fontFamily}`;
-            ctx.fillStyle = config.signature.color;
-            ctx.textAlign = 'right'; // Set text alignment to right for RTL text
-            ctx.fillText(signature, config.signature.x, config.signature.y);
+                ctx.font = `bold ${config.name.fontSize}px ${config.name.fontFamily}`;
+                ctx.fillStyle = config.name.color;
+                ctx.fillText(fullName, config.name.x, config.name.y);
 
-            // Add Circular Profile Picture if present
-            if (pictureDataURL) {
-                const picture = new Image();
-                picture.onload = function() {
-                    // Create circular clipping path
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.arc(
-                        config.picture.x, 
-                        config.picture.y, 
-                        config.picture.radius, 
-                        0, 
-                        Math.PI * 2, 
-                        true
-                    );
-                    ctx.closePath();
-                    ctx.clip();
+                ctx.font = `${config.signature.fontSize}px ${config.signature.fontFamily}`;
+                ctx.fillStyle = config.signature.color;
+                ctx.textAlign = 'right';
+                ctx.fillText(signature, config.signature.x, config.signature.y);
 
-                    // Draw picture
-                    const scale = config.picture.scale * 
-                        Math.max(
-                            config.picture.radius * 2 / picture.width, 
-                            config.picture.radius * 2 / picture.height
-                        );
-                    const scaledWidth = picture.width * scale;
-                    const scaledHeight = picture.height * scale;
-                    const offsetX = config.picture.x - scaledWidth / 2;
-                    const offsetY = config.picture.y - scaledHeight / 2;
-
-                    ctx.drawImage(picture, offsetX, offsetY, scaledWidth, scaledHeight);
-                    ctx.restore();
-
-                    displayCertificate(canvas);
-                };
-                picture.src = pictureDataURL;
-            } else {
-                displayCertificate(canvas);
-            }
+                if (pictureDataURL) {
+                    const picture = new Image();
+                    picture.onload = function() {
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.arc(config.picture.x, config.picture.y, config.picture.radius, 0, Math.PI * 2, true);
+                        ctx.closePath();
+                        ctx.clip();
+                        const scale = config.picture.scale * Math.max(config.picture.radius * 2 / picture.width, config.picture.radius * 2 / picture.height);
+                        const scaledWidth = picture.width * scale;
+                        const scaledHeight = picture.height * scale;
+                        ctx.drawImage(picture, config.picture.x - scaledWidth / 2, config.picture.y - scaledHeight / 2, scaledWidth, scaledHeight);
+                        ctx.restore();
+                        onDone(canvas);
+                    };
+                    picture.src = pictureDataURL;
+                } else {
+                    onDone(canvas);
+                }
+            };
+            img.onerror = function() {
+                const alt = src.replace(/\.(jpe?g|png)$/i, (_, ext) => ext && ext.toLowerCase().startsWith('j') ? '.png' : '.jpeg');
+                if (alt !== src && !isRetry) tryLoad(alt, true);
+                else onDone(canvas); // show canvas even if blank so container updates
+            };
+            img.src = src;
         };
-        img.src = templateSrc || 'https://via.placeholder.com/1600x2000.png?text=Certificate+Template';
+
+        // Wait for Arabic font to load so certificate text renders correctly
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(startLoad);
+        } else {
+            startLoad();
+        }
     }
+
+    // Expose for preview page: render certificate with sample data to any container
+    window.renderCertificatePreview = function(container, options) {
+        const opts = options || {};
+        const fullName = opts.fullName || 'اسم الطفل';
+        const signature = opts.signature || 'التوقيع';
+        const templateSrc = opts.withPicture ? 'templates/certificate.png' : 'templates/nocertificate.png';
+        const pictureDataURL = opts.pictureDataURL || null;
+        renderCertificateToCanvas(fullName, signature, pictureDataURL, templateSrc, (canvas) => {
+            container.innerHTML = '';
+            container.appendChild(canvas);
+        });
+    };
 
     function displayCertificate(canvas) {
         certificateContainer.innerHTML = '';
@@ -585,7 +580,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Download Certificate
-    downloadCertificateBtn.addEventListener('click', () => {
+    if (downloadCertificateBtn) downloadCertificateBtn.addEventListener('click', () => {
         // Track download event with Google Analytics
         gtag('event', 'download_certificate', {
             'event_category': 'engagement',
@@ -616,5 +611,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return 'Mobile';
         }
         return 'Desktop';
+    }
+
+    // Preview page: render sample certificate on load
+    if (isPreviewPage) {
+        const container = document.getElementById('certificate-preview-container');
+        if (container && window.renderCertificatePreview) {
+            window.renderCertificatePreview(container);
+        }
     }
 });
