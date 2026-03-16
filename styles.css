@@ -351,7 +351,7 @@ footer {
         min-height: auto;
         background-size: cover;
         background-position: center;
-        background-image: url('backgroundh2.png'); /* Change background image for responsive mode */
+        background-image: url('backgroundh2-mobile.png'); /* Mobile form background; use 768×1200 (or 828×1200) for smaller file size */
     }
     
     .form-images {

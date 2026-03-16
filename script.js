@@ -47,6 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // Template path by gender and picture: space-safe URLs for templates/*.jpeg
+    function getTemplatePath(gender, withPicture) {
+        if (withPicture) return gender === 'female' ? 'templates/sora%20fatat.jpeg' : 'templates/sora%20fata.jpeg';
+        return gender === 'female' ? 'templates/bidon%20fatat.jpeg' : 'templates/bidon%20fata.jpeg';
+    }
+
     // Expose configuration for external modification
     window.updateCertificateConfig = function(config) {
         Object.keys(config).forEach(key => {
@@ -459,9 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let pictureDataURL = null;
 
         // Select Certificate Template
-        const selectTemplate = (gender, hasPicture) => {
-            return hasPicture ? 'templates/certificate.png' : 'templates/nocertificate.png';
-        };
+        const selectTemplate = (gender, hasPicture) => getTemplatePath(gender, hasPicture);
 
         // Picture Handling
         if (includePictureCheckbox.checked) {
@@ -498,7 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
 
-        const startLoad = () => tryLoad(templateSrc || 'templates/nocertificate.png', false);
+        const startLoad = () => tryLoad(templateSrc || getTemplatePath('male', false), false);
 
         const tryLoad = (src, isRetry) => {
             const img = new Image();
@@ -562,7 +566,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const opts = options || {};
         const fullName = opts.fullName || 'اسم الطفل';
         const signature = opts.signature || 'التوقيع';
-        const templateSrc = opts.withPicture ? 'templates/certificate.png' : 'templates/nocertificate.png';
+        const templateSrc = getTemplatePath(opts.gender || 'male', opts.withPicture);
         const pictureDataURL = opts.pictureDataURL || null;
         renderCertificateToCanvas(fullName, signature, pictureDataURL, templateSrc, (canvas) => {
             container.innerHTML = '';
